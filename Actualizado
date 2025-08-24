@@ -1,0 +1,89 @@
+import random
+import os
+
+# Banco de preguntas (ampliado)
+preguntas = [
+    {
+        "pregunta": "¿Cuál es el planeta más grande del sistema solar?",
+        "opciones": ["A) Marte", "B) Júpiter", "C) Saturno", "D) Venus"],
+        "respuesta": "B"
+    },
+    {
+        "pregunta": "¿Quién escribió 'Don Quijote de la Mancha'?",
+        "opciones": ["A) Gabriel García Márquez", "B) Miguel de Cervantes", "C) William Shakespeare", "D) Pablo Neruda"],
+        "respuesta": "B"
+    },
+    {
+        "pregunta": "¿Cuál es el río más largo del mundo?",
+        "opciones": ["A) Amazonas", "B) Nilo", "C) Yangtsé", "D) Mississippi"],
+        "respuesta": "A"
+    },
+    {
+        "pregunta": "¿Qué lenguaje se utiliza principalmente en ciencia de datos?",
+        "opciones": ["A) Python", "B) Java", "C) C++", "D) Ruby"],
+        "respuesta": "A"
+    },
+    {
+        "pregunta": "¿En qué año llegó el hombre a la Luna?",
+        "opciones": ["A) 1969", "B) 1972", "C) 1958", "D) 1980"],
+        "respuesta": "A"
+    },
+    {
+        "pregunta": "¿Cuál es la capital de Australia?",
+        "opciones": ["A) Sídney", "B) Melbourne", "C) Canberra", "D) Brisbane"],
+        "respuesta": "C"
+    }
+]
+
+# Guardar puntajes en archivo
+def guardar_puntaje(nombre, puntaje):
+    with open("puntajes.txt", "a", encoding="utf-8") as f:
+        f.write(f"{nombre}: {puntaje}\n")
+
+# Mostrar ranking
+def mostrar_ranking():
+    if os.path.exists("puntajes.txt"):
+        print("\nHistorial de puntajes:")
+        with open("puntajes.txt", "r", encoding="utf-8") as f:
+            print(f.read())
+    else:
+        print("\nAún no hay puntajes guardados.")
+
+# Juego principal
+def jugar_trivia():
+    nombre = input("Ingresa tu nombre: ")
+    print(f"\nBienvenido {nombre} al Juego de Trivia\n")
+    
+    puntaje = 0
+    random.shuffle(preguntas)  # mezclar preguntas
+    
+    for p in preguntas:
+        print("\n" + p["pregunta"])
+        for opcion in p["opciones"]:
+            print(opcion)
+        respuesta = input("Elige una opción (A, B, C, D): ").upper()
+
+        if respuesta == p["respuesta"]:
+            print("Correcto!")
+            puntaje += 10
+        else:
+            print(f"Incorrecto. La respuesta correcta era {p['respuesta']}")
+            puntaje -= 5
+    
+    print("\nJuego terminado")
+    print(f"Tu puntaje final es: {puntaje}")
+    
+    # Guardar en archivo
+    guardar_puntaje(nombre, puntaje)
+    
+    # Mostrar ranking
+    mostrar_ranking()
+
+# Ejecutar múltiples rondas
+if __name__ == "__main__":
+    while True:
+        jugar_trivia()
+        otra = input("\n¿Quieres jugar otra ronda? (s/n): ").lower()
+        if otra != "s":
+            print("\nGracias por jugar, hasta la próxima.")
+            break
