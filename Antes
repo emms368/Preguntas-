@@ -1,0 +1,56 @@
+import random
+
+# Banco de preguntas
+preguntas = [
+    {
+        "pregunta": "¿Cuál es el planeta más grande del sistema solar?",
+        "opciones": ["A) Marte", "B) Júpiter", "C) Saturno", "D) Venus"],
+        "respuesta": "B"
+    },
+    {
+        "pregunta": "¿Quién escribió 'Don Quijote de la Mancha'?",
+        "opciones": ["A) Gabriel García Márquez", "B) Miguel de Cervantes", "C) William Shakespeare", "D) Pablo Neruda"],
+        "respuesta": "B"
+    },
+    {
+        "pregunta": "¿Cuál es el río más largo del mundo?",
+        "opciones": ["A) Amazonas", "B) Nilo", "C) Yangtsé", "D) Mississippi"],
+        "respuesta": "A"
+    },
+    {
+        "pregunta": "¿Qué lenguaje se utiliza principalmente en ciencia de datos?",
+        "opciones": ["A) Python", "B) Java", "C) C++", "D) Ruby"],
+        "respuesta": "A"
+    }
+]
+
+def jugar_trivia():
+    print("Bienvenido al Juego de Trivia\n")
+    puntaje = 0
+    random.shuffle(preguntas)  # mezclar preguntas
+    
+    for p in preguntas:
+        print("\n" + p["pregunta"])
+        for opcion in p["opciones"]:
+            print(opcion)
+        respuesta = input("Elige una opción (A, B, C, D): ").upper()
+
+        if respuesta == p["respuesta"]:
+            print("¡Correcto!")
+            puntaje += 10
+        else:
+            print(f" Incorrecto. La respuesta correcta era {p['respuesta']}")
+            puntaje -= 5
+    
+    print("\nJuego terminado")
+    print(f"Tu puntaje final es: {puntaje}")
+    if puntaje > 20:
+        print("¡Excelente trabajo, eres un crack!")
+    elif puntaje >= 10:
+        print(" Nada mal, sigue practicando.")
+    else:
+        print("Toca estudiar un poquito más...")
+
+# Ejecutar el juego
+if __name__ == "__main__":
+    jugar_trivia()
